@@ -7,3 +7,5 @@ __pycache__/
 .DS_Store
 *.egg-info/
 models/credit_model.pkl
+*.pdf
+!data/sample_memo.pdf
