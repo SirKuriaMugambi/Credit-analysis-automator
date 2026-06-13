@@ -349,7 +349,7 @@ if "analysis" in st.session_state:
                 value=total_score,
                 number={"valueformat": ".0f", "font": {"size": 36}},
                 title={"text": "Total Score (0–100)", "font": {"size": 16}},
-                domain={"x": [0.0, 1.0], "y": [0.15, 0.95]},
+                domain={"x": [0.0, 1.0], "y": [0, 1]},
                 gauge={
                     "axis": {"range": [0, 100]},
                     "bar":  {"color": "#1a365d"},
@@ -360,7 +360,7 @@ if "analysis" in st.session_state:
                     ],
                 },
             ))
-            gauge_fig.update_layout(height=320, margin=dict(t=60, b=40, l=20, r=20))
+            gauge_fig.update_layout(height=350, margin=dict(t=80, b=80, l=30, r=30))
             st.plotly_chart(gauge_fig, use_container_width=True)
 
         with col_z:
@@ -372,7 +372,7 @@ if "analysis" in st.session_state:
                     value=z,
                     number={"valueformat": ".2f", "font": {"size": 36}},
                     title={"text": "Altman Z-Score", "font": {"size": 16}},
-                    domain={"x": [0.0, 1.0], "y": [0.15, 0.95]},
+                    domain={"x": [0.0, 1.0], "y": [0, 1]},
                     gauge={
                         "axis": {"range": [0, 6]},
                         "bar":  {"color": "#1a365d"},
@@ -388,7 +388,7 @@ if "analysis" in st.session_state:
                         },
                     },
                 ))
-                z_fig.update_layout(height=320, margin=dict(t=60, b=40, l=20, r=20))
+                z_fig.update_layout(height=350, margin=dict(t=80, b=80, l=30, r=30))
                 st.plotly_chart(z_fig, use_container_width=True)
             else:
                 st.info("Altman Z-Score unavailable — missing market or financial data.")
