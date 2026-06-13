@@ -148,7 +148,7 @@ def format_ratio_value(ratio_key: str, value: float) -> str:
 def status_color(status: str) -> str:
     """Map GREEN / AMBER / RED to a hex colour string."""
     return {
-        "GREEN": "#90EE90",
-        "AMBER": "#FFD580",
-        "RED":   "#FF7F7F",
+        "GREEN": "#16a34a",
+        "AMBER": "#d97706",
+        "RED":   "#dc2626",
     }.get(status, "#CCCCCC")

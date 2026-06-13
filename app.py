@@ -91,7 +91,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(
         "Built by **Caleb Mugambi**  \n"
-        "[GitHub](https://github.com/yourusername) · [LinkedIn](#)"
+        "[GitHub](https://github.com/SirKuriaMugambi) · [LinkedIn](https://www.linkedin.com/in/caleb-mugambi)"
     )
 
 
@@ -304,8 +304,12 @@ if "analysis" in st.session_state:
         ratio_df = pd.DataFrame(rows)
 
         def _cell_color(val: str) -> str:
-            bg = {"GREEN": "#c8f7c5", "AMBER": "#fef3c7", "RED": "#fecaca"}.get(val, "")
-            return f"background-color: {bg}" if bg else ""
+            styles = {
+                "GREEN": "background-color: #16a34a; color: white; font-weight: bold; text-align: center",
+                "AMBER": "background-color: #d97706; color: white; font-weight: bold; text-align: center",
+                "RED":   "background-color: #dc2626; color: white; font-weight: bold; text-align: center",
+            }
+            return styles.get(val, "text-align: center")
 
         styled = ratio_df.style.map(_cell_color, subset=["Status"])
         st.dataframe(styled, use_container_width=True, hide_index=True)
@@ -343,18 +347,20 @@ if "analysis" in st.session_state:
             gauge_fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=total_score,
-                title={"text": "Total Score (0–100)"},
+                number={"valueformat": ".0f", "font": {"size": 36}},
+                title={"text": "Total Score (0–100)", "font": {"size": 16}},
+                domain={"x": [0.0, 1.0], "y": [0.15, 0.95]},
                 gauge={
                     "axis": {"range": [0, 100]},
                     "bar":  {"color": "#1a365d"},
                     "steps": [
-                        {"range": [0,  40],  "color": "#FF7F7F"},
-                        {"range": [40, 65],  "color": "#FFD580"},
-                        {"range": [65, 100], "color": "#90EE90"},
+                        {"range": [0,  40],  "color": "#dc2626"},
+                        {"range": [40, 65],  "color": "#d97706"},
+                        {"range": [65, 100], "color": "#16a34a"},
                     ],
                 },
             ))
-            gauge_fig.update_layout(height=350)
+            gauge_fig.update_layout(height=320, margin=dict(t=60, b=40, l=20, r=20))
             st.plotly_chart(gauge_fig, use_container_width=True)
 
         with col_z:
@@ -362,17 +368,18 @@ if "analysis" in st.session_state:
             z_valid = not (isinstance(z, float) and math.isnan(z))
             if z_valid:
                 z_fig = go.Figure(go.Indicator(
-                    mode="gauge+number+delta",
+                    mode="gauge+number",
                     value=z,
-                    delta={"reference": 2.99},
-                    title={"text": "Altman Z-Score"},
+                    number={"valueformat": ".2f", "font": {"size": 36}},
+                    title={"text": "Altman Z-Score", "font": {"size": 16}},
+                    domain={"x": [0.0, 1.0], "y": [0.15, 0.95]},
                     gauge={
                         "axis": {"range": [0, 6]},
                         "bar":  {"color": "#1a365d"},
                         "steps": [
-                            {"range": [0,    1.81], "color": "#FF7F7F"},
-                            {"range": [1.81, 2.99], "color": "#FFD580"},
-                            {"range": [2.99, 6],    "color": "#90EE90"},
+                            {"range": [0,    1.81], "color": "#dc2626"},
+                            {"range": [1.81, 2.99], "color": "#d97706"},
+                            {"range": [2.99, 6],    "color": "#16a34a"},
                         ],
                         "threshold": {
                             "line": {"color": "navy", "width": 4},
@@ -381,7 +388,7 @@ if "analysis" in st.session_state:
                         },
                     },
                 ))
-                z_fig.update_layout(height=350)
+                z_fig.update_layout(height=320, margin=dict(t=60, b=40, l=20, r=20))
                 st.plotly_chart(z_fig, use_container_width=True)
             else:
                 st.info("Altman Z-Score unavailable — missing market or financial data.")
