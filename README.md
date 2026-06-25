@@ -1,4 +1,4 @@
-# 📊 Credit Analysis Automator
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://credit-analysis-automator.streamlit.app)# 📊 Credit Analysis Automator
 
 > Corporate credit analysis in seconds — from raw financial statements to a downloadable PDF credit memo, powered by a hybrid rules + ML scoring engine.
 
